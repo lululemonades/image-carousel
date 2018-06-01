@@ -1,14 +1,111 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <script src="https://fb.me/react-with-addons-0.14.6.js"></script>
-    <script src="https://fb.me/react-dom-0.14.6.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  </head>
-  <body>
-    <div id="carousel"></div>
-    <script src="bundle.js"></script>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <script src="https://fb.me/react-with-addons-0.14.6.js"></script>
+  <script src="https://fb.me/react-dom-0.14.6.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <style>
+  @import url('https://fonts.googleapis.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i');
+  * {
+    padding: 0;
+    margin: 0;
+  }
+  .thumbnails {
+    display: flex;
+    flex-direction: column;
+    float: left;
+    position: sticky;
+    top: 160px;
+  }
+  .thumbnails > a {
+    opacity: 0.4;
+    transition: 0.2s;
+    padding: 6px 27px;
+  }
+  .thumbnails > a:first-of-type {
+    opacity: 1;
+  }
+
+  #image-carousel {
+    /* overflow-y: scroll;
+    width: 630px;
+    height: 870px; */
+    overflow: hidden;
+    width: 645px;
+  }
+  #image-carousel > img {
+    padding-bottom: 30px;
+    outline: none;
+  }
+  .breadcrumb-trail {
+    font-family: 'Josefin Sans', Helvetica;
+    font-size: 12.5pt;
+    font-weight: 300;
+    height: 120px;
+    padding: 10px 30px;
+    padding-bottom: 30px;
+    list-style-type: none;
+    display: flex;
+    align-items: flex-end;
+  }
+  .breadcrumb-trail > li {
+    padding: 0 3px;
+  }
+  .breadcrumb-trail > li:first-of-type {
+    padding-left: 0;
+  }
+  .breadcrumb-trail a {
+    text-decoration: none;
+    color: black;
+  }
+  </style>
+</head>
+<body>
+  <div id="carousel"></div>
+  <script src="bundle.js"></script>
+  <script>
+  var els = Array.from(document.getElementsByTagName('li'))
+  els.pop()
+  els.forEach(el => el.innerHTML = el.innerHTML + ' >')
+  $(document).ready(function() {
+    $('a[href*="#"]')
+    // Remove links that don't actually link to anything
+    .not('[href="#"]')
+    .not('[href="#0"]')
+    .click(function(event) {
+      // On-page links
+      if (
+        location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '')
+        &&
+        location.hostname == this.hostname
+      ) {
+        // Figure out element to scroll to
+        var target = $(this.hash);
+        target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+        // Does a scroll target exist?
+        if (target.length) {
+          // Only prevent default if animation is actually gonna happen
+          event.preventDefault();
+          $('html, body').animate({
+            scrollTop: target.offset().top
+          }, 200, function() {
+            // Callback after animation
+            // Must change focus!
+            var $target = $(target);
+            $target.focus();
+            if ($target.is(":focus")) { // Checking if the target was focused
+              return false;
+            } else {
+              $target.attr('tabindex','-1'); // Adding tabindex for elements not focusable
+              $target.focus(); // Set focus again
+            };
+          });
+        }
+      }
+    });
+  })
+  </script>
+</body>
 </html>

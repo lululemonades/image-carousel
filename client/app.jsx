@@ -62,9 +62,6 @@ class Carousel extends React.Component {
   //   document.getElementById(this.state.imageIndex).parentNode.style.opacity = 0.4
   //   var selected = parseInt(e.target.id)
   //   this.setState({imageUrl: this.props.images[selected]})
-  //   var splitUrl = this.state.imageUrl.split('/')
-  //   var getFileName = splitUrl[splitUrl.length - 1].split('?')
-  //   var getImageName = getFileName[0].split('.')[0]
   //   this.setState({imageIndex: selected})
   // }
   // scrollCarousel(e) {

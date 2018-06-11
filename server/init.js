@@ -29,6 +29,6 @@ handler.read(path.join(__dirname, '/products.txt'), function(data) {
     item._id = item.id
     delete item.id
     var newProduct = new Product(item)
-    newProduct.save((err) => { if (err) console.log(err) })
+    newProduct.save((err) => { if (err) throw new Error(err) })
   })
 })

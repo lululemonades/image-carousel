@@ -5,10 +5,11 @@ const models = require('./models');
 const { Image, Product } = models;
 
 function parseTabSeparatedValues(text) {
-  const body = JSON.stringify(text);
+  let body = '';
+  body += text;
   const rows = body.trim().split('\n');
   const headers = rows.shift().split('\t');
-  return rows.map((row) => {
+  const table = rows.map((row) => {
     const result = {};
     const cells = row.split('\t');
     headers.forEach((header, index) => {
@@ -16,6 +17,7 @@ function parseTabSeparatedValues(text) {
     });
     return result;
   });
+  return table;
 }
 
 handler.read(path.join(__dirname, '/products.txt'), (data) => {
@@ -41,7 +43,7 @@ handler.read(path.join(__dirname, '/products.txt'), (data) => {
       return result;
     }
     const imageInfo = {
-      _id: product.id,
+      _id: id,
       urls: [{ url: `http://lululemonades-related.s3.amazonaws.com/image00${toDigits(3, id)}.jpg` },
         { url: `http://lululemonades-related.s3.amazonaws.com/image00${toDigits(3, Math.floor(Math.random(id) * 100) + 1)}.jpg ` },
         { url: `http://lululemonades-related.s3.amazonaws.com/image00${toDigits(3, Math.floor(Math.random(id) * 100) + 1)}.jpg` },

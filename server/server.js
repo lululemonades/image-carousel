@@ -1,9 +1,8 @@
 const express = require('express');
 const models = require('./models');
-
-const { Image } = models;
-const { Product } = models;
 const parser = require('body-parser');
+
+const { Image, Product } = models;
 
 const app = express();
 app.use(parser.text());
@@ -26,4 +25,4 @@ app.get('/products/:id/images', (req, res) => {
         });
     });
 });
-app.listen(8080);
+app.listen(3004);

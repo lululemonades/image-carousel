@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
-// TODO:
-const imageSizeSchema = new Schema({
+
+const imageUrlSchema = new Schema({
   url: String,
 });
 const imageSchema = new Schema({
   _id: String,
-  urls: [imageSizeSchema],
+  urls: [imageUrlSchema],
 });
 const productSchema = new Schema({
   _id: String,

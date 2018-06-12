@@ -2,14 +2,13 @@ const handler = require('./request-handler');
 const path = require('path');
 const models = require('./models');
 
-const { Image } = models;
-const { Product } = models;
+const { Image, Product } = models;
 
-handler.read(path.join(__dirname, '/products.txt'), (data) => {
-  const body = JSON.stringify(data);
+function parseTabSeparatedValues(text) {
+  const body = JSON.stringify(text);
   const rows = body.trim().split('\n');
   const headers = rows.shift().split('\t');
-  const items = rows.map((row) => {
+  return rows.map((row) => {
     const result = {};
     const cells = row.split('\t');
     headers.forEach((header, index) => {
@@ -17,6 +16,10 @@ handler.read(path.join(__dirname, '/products.txt'), (data) => {
     });
     return result;
   });
+}
+
+handler.read(path.join(__dirname, '/products.txt'), (data) => {
+  const items = parseTabSeparatedValues(data);
   items.forEach((item, index) => {
     const product = Object.assign({ _id: item.id }, item);
     delete product.id;

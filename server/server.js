@@ -1,11 +1,10 @@
 const express = require('express');
 const models = require('./models');
-const parser = require('body-parser');
+const cors = require('cors');
 
 const { Image, Product } = models;
-
 const app = express();
-app.use(parser.text());
+app.use(cors());
 // Absolute is preffered
 app.use(express.static('./public'));
 app.get('/products/:id/images', (req, res) => {

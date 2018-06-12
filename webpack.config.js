@@ -1,10 +1,10 @@
-var path = require('path')
+const path = require('path');
 
 module.exports = {
-  entry: `./client/index.jsx`,
+  entry: './client/index.jsx',
   output: {
     filename: 'bundle.js',
-    path: path.join(__dirname, '/public')
+    path: path.join(__dirname, '/public'),
   },
   module: {
     rules: [
@@ -13,9 +13,9 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
-          presets: ['react', 'es2015']
-        }
-      }
-    ]
-  }
+          presets: ['react', 'es2015'],
+        },
+      },
+    ],
+  },
 };

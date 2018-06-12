@@ -1,11 +1,9 @@
-var mongoose = require('mongoose')
-var Schema = mongoose.Schema
+const mongoose = require('mongoose');
+
+const { Schema } = mongoose;
 // TODO:
 const imageSizeSchema = new Schema({
-  tinyUrl: String,
-  smallUrl: String,
-  largeUrl: String,
-  superLargeUrl: String,
+  url: String,
 });
 const imageSchema = new Schema({
   _id: String,
@@ -18,12 +16,11 @@ const productSchema = new Schema({
   type: String,
   colors: String,
 });
-mongoose.connect('mongodb://localhost:27017/products')
-var db = mongoose.connection
+mongoose.connect('mongodb://localhost:27017/products');
+const db = mongoose.connection;
 const Image = db.model('Image', imageSchema);
 const Product = db.model('Product', productSchema);
-// Export schemas from here
 module.exports = {
-  Image: Image,
-  Product: Product,
-}
+  Image,
+  Product,
+};

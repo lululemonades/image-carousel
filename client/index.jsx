@@ -1,5 +1,14 @@
 import Carousel from './Carousel.jsx'
 import ReactDOM from 'react-dom'
 import React from 'react'
-
-ReactDOM.render(<Carousel productType={['Men','Bottoms','Pants']} images={["https://www.dropbox.com/s/ty80w1li690mkt8/Untitled-4.jpg?raw=1","https://www.dropbox.com/s/kx1e7gyqylu1mgh/Untitled-5.jpg?raw=1","https://www.dropbox.com/s/fqa3nkc4owyqqnn/Untitled-6.jpg?raw=1","https://www.dropbox.com/s/8afgs7mh7lwsn6y/Untitled-7.jpg?raw=1","https://www.dropbox.com/s/7yij9oh0c6iw0p0/Untitled-2.jpg?raw=1"]}/>, document.getElementById('carousel'))
+fetch('/products/98/images').then(response => response.json().then(body => {
+  console.log(body)
+  var details = Object.values(body[0])
+  details.shift()
+  details.pop()
+  details.pop()
+  console.log(details)
+  var images = body[1].urls.map(url => url.url)
+  console.log(images)
+  ReactDOM.render(<Carousel productType={details} images={images}/>, document.getElementById('carousel'))
+}))

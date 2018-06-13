@@ -48,6 +48,7 @@
     position: sticky;
     position: -webkit-sticky;
     top: 160px;
+    z-index: 1;
   }
   .thumbnails > a {
     opacity: 0.4;
@@ -71,7 +72,7 @@
     font-size: 12.5pt;
     font-weight: 300;
     height: 120px;
-    padding: 10px 30px;
+    padding: 10px 26px;
     padding-bottom: 30px;
     list-style-type: none;
     display: flex;

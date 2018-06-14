@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
   entry: ['./client/index.jsx', './public/styles.scss'],
   output: {
-    filename: 'bundle.js',
+    filename: 'carousel-module-bundle.js',
     path: path.join(__dirname, '/public'),
   },
   module: {

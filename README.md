@@ -1,4 +1,4 @@
-# Photo gallery from Lululemon website.
+# Photo gallery from the Lululemon website.
 
 > In conjunction with four other components, this repository can be added to a proxy to create a full product page experience. In addition to creating the front end, part of my task was to seed a database with mock data. The database to connect this photo gallery experience is a Mongo database, the component loads the image URLs from my mock data set and displays the images.
 

@@ -40,10 +40,11 @@
     font-size: 19pt;
   }
   .thumbnails {
+    position: absolute;
     display: flex;
     flex-direction: column;
-    float: left;
     margin-left: 8px;
+    float: left;
   }
   #thumbs {
     position: sticky;
@@ -51,18 +52,22 @@
     top: 155px;
     z-index: 1;
   }
-  .thumbnails > a {
+  .thumbnails a {
     opacity: 0.4;
     transition: 0.2s;
     padding: 6px 27px;
+    display: block;
+    width: 67px;
   }
-  .thumbnails > a:first-of-type {
+  .thumbnails a:first-of-type {
     opacity: 1;
   }
   #image-carousel {
     overflow: hidden;
     width: 645px;
     margin-top: 4px;
+    position: relative;
+    left: 137px;
   }
   #image-carousel > img {
     padding-bottom: 30px;

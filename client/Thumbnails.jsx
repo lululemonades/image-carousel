@@ -1,4 +1,5 @@
 import React from 'react'
+import Sticky from 'react-stickynode'
 
 class Thumbnails extends React.Component {
   constructor(props) {
@@ -16,9 +17,11 @@ class Thumbnails extends React.Component {
       images.push(el)
     })
     return(
-      <div className="thumbnails">
-        {images}
-      </div>
+        <div className="thumbnails">
+          <Sticky enabled top={155} bottomBoundary={4655.9549560546875}>
+            {images}
+          </Sticky>
+        </div>
     )
   }
 }

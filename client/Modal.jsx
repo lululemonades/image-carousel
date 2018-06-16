@@ -16,6 +16,7 @@ class Modal extends React.Component {
         height: '100%',
         overflow: 'hidden',
         position: 'relative',
+        left: '137px',
       },
       pos1: 0,
       pos2: 0,

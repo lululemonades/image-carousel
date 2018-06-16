@@ -16,7 +16,7 @@ const productSchema = new Schema({
   type: String,
   colors: String,
 });
-mongoose.connect('mongodb://localhost:27017/products');
+mongoose.connect('mongodb://admin:password1@ds261430.mlab.com:61430/lululemon');
 const db = mongoose.connection;
 const Image = db.model('Image', imageSchema);
 const Product = db.model('Product', productSchema);

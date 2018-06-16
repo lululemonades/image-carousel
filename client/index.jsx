@@ -1,7 +1,7 @@
 import Carousel from './Carousel.jsx'
 import ReactDOM from 'react-dom'
 import React from 'react'
-fetch('/products/98/images').then(response => response.json().then(body => {
+fetch('/images' + window.location.pathname).then(response => response.json().then(body => {
   var details = Object.values(body[0])
   details.shift()
   details.pop()

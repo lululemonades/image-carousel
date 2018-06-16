@@ -6,8 +6,9 @@ const { Image, Product } = models;
 const app = express();
 app.use(cors());
 // Absolute is preffered
-app.use(express.static('./public'));
-app.get('/products/:id/images', (req, res) => {
+// app.use(express.static('./public'));
+app.use('/:id', express.static('./public'));
+app.get('/images/:id', (req, res) => {
   const { id } = req.params;
   const result = [];
   Product.find({ _id: id }, (err, data) => {

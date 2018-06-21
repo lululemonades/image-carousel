@@ -11,7 +11,7 @@ const populateImageJoin = (start, end) => {
     rows = rows.join('\n');
     result.push(rows);
   }
-  return result.join('\n') + '\n';
+  return `${result.join('\n')}\n`;
 };
 
 const populateImages = () => {
@@ -37,7 +37,7 @@ const populateProductsData = (start, end) => {
       type[Math.floor(Math.random() * 3)],
     ].join(','));
   }
-  return result.join('\n') + '\n';
+  return `${result.join('\n')}\n`;
 };
 
 populateImages();

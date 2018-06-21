@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server/server.js",
+    "start-pg": "nodemon server/pgServer.js",
+    "start-cass": "nodemon server/cassServer.js",
     "seed-db": "node server/init.js",
     "react-dev": "webpack -d --watch"
   },

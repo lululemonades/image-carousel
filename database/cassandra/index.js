@@ -4,14 +4,12 @@ const client = new cassandra.Client({
   contactPoints: ['localhost'],
 });
 
-const query = 'SELECT cluster_name, listen_address FROM system.local';
 
-const callCassandra = () => {
-  return client.execute(query)
-    .then(result => console.log(result))
-    .catch(err => console.log(err));
+const getProduct = (productId) => {
+  const query = `SELECT * FROM products_images.products WHERE id = ${productId}`;
+  return client.execute(query);
 };
 
 module.exports = {
-  callCassandra,
+  getProduct,
 };

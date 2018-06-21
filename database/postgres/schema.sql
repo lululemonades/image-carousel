@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS product_image_join;
 DROP TABLE IF EXISTS images;
 DROP TABLE IF EXISTS products;
 DROP INDEX IF EXISTS products_idx ;
@@ -12,12 +13,12 @@ CREATE TABLE products (
 
 CREATE TABLE images (
   id SERIAL PRIMARY KEY NOT NULL,
-  product_id INT NOT NULL,
-  index INT NOT NULL,
-  url VARCHAR(200) NOT NULL,
-  FOREIGN KEY (product_id) REFERENCES products(id)
+  url VARCHAR(200) NOT NULL
 );
 
--- CREATE INDEX products_idx ON products(id);
--- CREATE INDEX images_idx ON images(product_id);
-
+CREATE TABLE product_image_join (
+  id SERIAL PRIMARY KEY NOT NULL,
+  product_id INT NOT NULL,
+  image_id INT NOT NULL,
+  position_index INT NOT NULL
+);

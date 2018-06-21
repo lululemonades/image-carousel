@@ -1,16 +1,26 @@
 const fs = require('fs');
 
-const populateImageData = (start, end) => {
+const populateImageJoin = (start, end) => {
   const result = [];
-  for (let i = start; i < end; i += 1) {
+  for (let productId = start; productId < end; productId += 1) {
     let rows = [];
-    for (let j = 0; j < 5; j += 1) {
-      rows.push([i, j, `https://s3-us-west-1.amazonaws.com/imagesrapidretail/${Math.floor(Math.random() * 1000)}.jpg`].join(','));
+    for (let positionIndex = 0; positionIndex < 5; positionIndex += 1) {
+      const randomImageId = Math.floor(Math.random() * 1000);
+      rows.push([productId, randomImageId, positionIndex].join(','));
     }
     rows = rows.join('\n');
     result.push(rows);
   }
   return result.join('\n') + '\n';
+};
+
+const populateImages = () => {
+  let imagesDoc = [];
+  for (let i = 0; i < 1000; i++) {
+    imagesDoc.push([i, `https://s3-us-west-1.amazonaws.com/imagesrapidretail/${i}.jpg`].join(','));
+  }
+  imagesDoc = imagesDoc.join('\n');
+  fs.appendFileSync('./images_seed.csv', imagesDoc);
 };
 
 const genders = ['Men', 'Women', 'Girls'];
@@ -30,19 +40,21 @@ const populateProductsData = (start, end) => {
   return result.join('\n') + '\n';
 };
 
+populateImages();
+
 let start = 1;
 let end = 100001;
 
 while (start < 10000001) {
-  let imageResults = populateImageData(start, end);
-  let productsResults = populateProductsData(start, end);
+  let imageJoinDoc = populateImageJoin(start, end);
+  let productsDoc = populateProductsData(start, end);
 
-  fs.appendFileSync('./images_seed.csv', imageResults);
-  fs.appendFileSync('./products_seed.csv', productsResults);
-  console.log('Wrote 100k to File');
+  fs.appendFileSync('./product_image_join_seed.csv', imageJoinDoc);
+  fs.appendFileSync('./products_seed.csv', productsDoc);
+  console.log('Wrote 100k to Files');
 
-  imageResults = '';
-  productsResults = '';
+  imageJoinDoc = '';
+  productsDoc = '';
   start += 100000;
   end += 100000;
 }

@@ -1,4 +1,4 @@
-const fs = require('fs'); 
+const fs = require('fs');
 const helpers = require('../seedHelpers');
 
 const populateCouchCSV = (start, end) => {
@@ -30,7 +30,7 @@ let end = 100001;
 while (start < 10000001) {
   let couchJSONDoc = populateCouchCSV(start, end);
 
-  fs.appendFileSync('./couchSeed.json', couchJSONDoc);
+  fs.appendFileSync('./couchSeedTest.json', couchJSONDoc);
 
   console.log('wrote 100k rows');
   couchJSONDoc = '';

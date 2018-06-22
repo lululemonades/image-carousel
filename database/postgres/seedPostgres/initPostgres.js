@@ -1,4 +1,5 @@
 const fs = require('fs');
+const helpers = require('../../seedHelpers');
 
 const populateImageJoin = (start, end) => {
   const result = [];
@@ -23,18 +24,14 @@ const populateImages = () => {
   fs.appendFileSync('./images_seed.csv', imagesDoc);
 };
 
-const genders = ['Men', 'Women', 'Girls'];
-const categories = ['Tops', 'Bottoms', 'Swim'];
-const type = ['Pants', 'Shorts', 'Shirts'];
-
 const populateProductsData = (start, end) => {
   const result = [];
   for (let i = start; i < end; i += 1) {
     result.push([
       i,
-      genders[Math.floor(Math.random() * 3)],
-      categories[Math.floor(Math.random() * 3)],
-      type[Math.floor(Math.random() * 3)],
+      helpers.getRandomGender(),
+      helpers.getRandomCategory(),
+      helpers.getRandomType(),
     ].join(','));
   }
   return `${result.join('\n')}\n`;
@@ -59,3 +56,9 @@ while (start < 10000001) {
   end += 100000;
 }
 
+module.exports = {
+  getRandomGender,
+  getRandomCategory,
+  getRandomType,
+  getRandomImage,
+};

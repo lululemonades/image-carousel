@@ -5,7 +5,7 @@ const client = new Client({
 });
 client.connect();
 
-const getProduct = (productId, callback) => {
+const getProduct = (productId) => {
   const sql = `
   SELECT 
     p.id,
@@ -27,37 +27,28 @@ const getProduct = (productId, callback) => {
   `;
   const params = [productId];
 
-  return client.query(sql, params, (err, res) => {
-    if (err) {
-      console.log('ERROR QUERYING DB', err);
-    } else {
-      const firstRow = res.rows[0];
+  return client.query(sql, params)
+    .then((result) => {
+      const firstRow = result.rows[0];
       const details = [firstRow.gender, firstRow.category, firstRow.type];
-      const images = res.rows.map(entry => entry.url);
+      const images = result.rows.map(entry => entry.url);
       const packet = {
         details,
         images,
       };
 
-      callback(packet);
-    }
-  });
+      return packet;
+    });
 };
 
-const deleteProduct = (productId, callback) => {
+const deleteProduct = (productId) => {
   const sql = 'DELETE FROM products where id=$1';
   const params = [productId];
 
-  return client.query(sql, params, (err) => {
-    if (err) {
-      console.log(err);
-    } else {
-      callback();
-    }
-  });
+  return client.query(sql, params);
 };
 
-const updateProduct = (productId, body, callback) => {
+const updateProduct = (body) => {
   const {
     id,
     gender,
@@ -83,7 +74,7 @@ const updateProduct = (productId, body, callback) => {
       WHERE id = $1
   `;
 
-  client.query(updateProductsQuery, productsParams)
+  return client.query(updateProductsQuery, productsParams)
     .then(() => client.query(selectImagesQuery, imageParams))
     .then(((response) => {
       const positionAndImageId = response.rows.map((row, i) => [i, row.id]);
@@ -99,14 +90,10 @@ const updateProduct = (productId, body, callback) => {
       });
 
       return client.query(updateImagesQuery);
-    }))
-    .then(() => {
-      callback();
-    })
-    .catch(err => console.log(err));
+    }));
 };
 
-const createProduct = (body, callback) => {
+const createProduct = (body) => {
   const {
     gender,
     category,

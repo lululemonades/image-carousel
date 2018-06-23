@@ -11,21 +11,21 @@ app.use(express.static('./public'));
 app.use('/product/:id', express.static('./public'));
 
 app.get('/product/:id/images', (req, res) => {
-  db.getProduct(req.params.id, (results) => {
-    res.send(results);
-  });
+  db.getProduct(req.params.id)
+    .then(results => res.status(200).send(results))
+    .catch(err => res.status(500).send(err));
 });
 
 app.delete('/product/:id/images', (req, res) => {
-  db.deleteProduct(req.params.id, () => {
-    res.status(200).send();
-  });
+  db.deleteProduct(req.params.id)
+    .then(() => res.status(200).send())
+    .catch(err => res.status(500).send(err));
 });
 
 app.put('/product/:id/images', (req, res) => {
-  db.updateProduct(req.params.id, req.body, () => {
-    res.status(200).send();
-  });
+  db.updateProduct(req.body)
+    .then(() => res.status(200).send())
+    .catch(err => res.status(500).send(err));
 });
 
 app.post('/product/images', (req, res) => {

@@ -5,7 +5,7 @@ const client = new Client({
 });
 client.connect();
 
-const getProduct = (productId) => {
+const getProduct = (productId, callback) => {
   const sql = `
   SELECT 
     p.id,
@@ -27,28 +27,33 @@ const getProduct = (productId) => {
   `;
   const params = [productId];
 
-  return client.query(sql, params)
-    .then((result) => {
-      const firstRow = result.rows[0];
-      const details = [firstRow.gender, firstRow.category, firstRow.type];
-      const images = result.rows.map(entry => entry.url);
-      const packet = {
-        details,
-        images,
-      };
+  client.query(sql, params, (err, result) => {
+    const firstRow = result.rows[0];
+    const details = [firstRow.gender, firstRow.category, firstRow.type];
+    const images = result.rows.map(entry => entry.url);
+    const packet = {
+      details,
+      images,
+    };
 
-      return packet;
-    });
+    callback(err, packet);
+  });
 };
 
-const deleteProduct = (productId) => {
+const deleteProduct = (productId, callback) => {
   const sql = 'DELETE FROM products where id=$1';
   const params = [productId];
 
-  return client.query(sql, params);
+  client.query(sql, params, (err) => {
+    if (!err) {
+      callback(null);
+    } else {
+      callback(err);
+    }
+  });
 };
 
-const updateProduct = (body) => {
+const updateProduct = (body, callback) => {
   const {
     id,
     gender,
@@ -90,10 +95,12 @@ const updateProduct = (body) => {
       });
 
       return client.query(updateImagesQuery);
-    }));
+    }))
+    .then(() => callback(null))
+    .catch(err => callback(err));
 };
 
-const createProduct = (body) => {
+const createProduct = (body, callback) => {
   const {
     gender,
     category,
@@ -134,9 +141,10 @@ const createProduct = (body) => {
         insertImagesQuery += `INSERT INTO product_image_join (product_id, image_id, position_index) VALUES (${id}, ${tuple[1]}, ${tuple[0]});`;
       });
 
-      return client.query(insertImagesQuery)
-        .then(() => ({ id }));
-    });
+      return client.query(insertImagesQuery);
+    })
+    .then(() => callback(null, { id }))
+    .catch(err => callback(err));
 };
 
 module.exports = {

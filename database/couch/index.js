@@ -1,7 +1,8 @@
-const nano = require('nano')('http://localhost:5984');
+const nano = require('nano')('http://localhost:5984/');
+
+const productsImages = nano.use('products_images');
 
 const getProduct = (productId, callback) => {
-  const productsImages = nano.use('products_images');
   productsImages.view('products', 'product', { key: Number(productId) }, (err, body) => {
     if (!err) {
       const {
@@ -15,9 +16,9 @@ const getProduct = (productId, callback) => {
         images,
       };
 
-      callback(packet);
+      callback(null, packet);
     } else {
-      console.log(err);
+      callback(err);
     }
   });
 };

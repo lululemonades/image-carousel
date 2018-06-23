@@ -29,7 +29,15 @@ const getProduct = (productId, callback) => {
     if (err) {
       console.log('ERROR QUERYING DB', err);
     } else {
-      callback(res);
+      const firstRow = res.rows[0];
+      const details = [firstRow.gender, firstRow.category, firstRow.type];
+      const images = res.rows.map(entry => entry.url);
+      const packet = {
+        details,
+        images,
+      };
+
+      callback(packet);
     }
   });
 };

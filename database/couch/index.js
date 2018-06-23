@@ -22,6 +22,21 @@ const getProduct = (productId, callback) => {
   });
 };
 
+const deleteProduct = (productId, callback) => {
+
+};
+
+const updateProduct = (productId, callback) => {
+
+};
+
+const createProduct = (callback) => {
+
+};
+
 module.exports = {
   getProduct,
+  deleteProduct,
+  updateProduct,
+  createProduct,
 };

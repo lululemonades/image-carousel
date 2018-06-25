@@ -111,11 +111,7 @@ const createProduct = (body, callback) => {
   const imageParams = [...images];
 
   const productsInsertQuery = `
-    INSERT INTO products (gender, category, type) VALUES ($1, $2, $3);
-  `;
-
-  const selectMaxQuery = `
-    SELECT max(id) FROM products
+    INSERT INTO products (gender, category, type) VALUES ($1, $2, $3) RETURNING id;
   `;
 
   const selectImagesQuery = `
@@ -128,9 +124,8 @@ const createProduct = (body, callback) => {
   let id;
 
   return client.query(productsInsertQuery, productsParams)
-    .then(() => client.query(selectMaxQuery))
     .then((result) => {
-      id = result.rows[0].max;
+      id = result.rows[0].id;
       return client.query(selectImagesQuery, imageParams);
     })
     .then((response) => {
